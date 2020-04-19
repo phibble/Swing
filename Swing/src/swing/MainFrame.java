@@ -10,6 +10,7 @@ public class MainFrame extends JFrame
 
 	private Toolbar toolbar;
 	private TextPanel textPanel;
+	private FormPanel formPanel;
 
 	public MainFrame()
 	{
@@ -19,6 +20,7 @@ public class MainFrame extends JFrame
 
 		toolbar = new Toolbar();
 		textPanel = new TextPanel();
+		formPanel = new FormPanel();
 
 		toolbar.setStringListener(new StringListener()
 		{
@@ -28,6 +30,7 @@ public class MainFrame extends JFrame
 			}
 		});
 
+		add(formPanel, BorderLayout.WEST);
 		add(textPanel, BorderLayout.CENTER);
 		add(toolbar, BorderLayout.NORTH);
 
