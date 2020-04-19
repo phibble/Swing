@@ -26,7 +26,7 @@ public class FormPanel extends JPanel
 	private JTextField occupationField;
 	private JButton okBtn;
 	private FormListener formListener;
-	private JList<String> ageList;
+	private JList<AgeCategory> ageList;
 
 	public FormPanel()
 	{
@@ -38,12 +38,12 @@ public class FormPanel extends JPanel
 		occupationLabel = new JLabel("Occupation: ");
 		nameField = new JTextField(10);
 		occupationField = new JTextField(10);
-		ageList = new JList<String>();
+		ageList = new JList<AgeCategory>();
 		
-		DefaultListModel<String> ageModel = new DefaultListModel<String>();
-		ageModel.addElement("Under 18");
-		ageModel.addElement("18 to 64");
-		ageModel.addElement("65 or over");
+		DefaultListModel<AgeCategory> ageModel = new DefaultListModel<AgeCategory>();
+		ageModel.addElement(new AgeCategory(0, "Under 18"));
+		ageModel.addElement(new AgeCategory(1, "18 to 64"));
+		ageModel.addElement(new AgeCategory(2, "65 or over"));
 		ageList.setModel(ageModel);
 		
 		ageList.setPreferredSize(new Dimension(110, 70));
@@ -58,11 +58,9 @@ public class FormPanel extends JPanel
 			{
 				String name = nameField.getText();
 				String occupation = occupationField.getText();
-				String ageCat = ageList.getSelectedValue();
+				AgeCategory ageCat = ageList.getSelectedValue();
 				
-				System.out.println(ageCat);
-				
-				FormEvent ev = new FormEvent(this, name, occupation);
+				FormEvent ev = new FormEvent(this, name, occupation, ageCat.getID());
 				
 				if(formListener != null)
 				{
@@ -133,5 +131,27 @@ public class FormPanel extends JPanel
 	public void setFormListener(FormListener listener)
 	{
 		this.formListener = listener;
+	}
+}
+
+class AgeCategory 
+{
+	private String text;
+	private int id;
+	
+	public AgeCategory(int id, String text)
+	{
+		this.id = id;
+		this.text = text;
+	}
+	
+	public String toString()
+	{
+		return text;
+	}
+	
+	public int getID()
+	{
+		return id;
 	}
 }
