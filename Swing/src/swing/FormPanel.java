@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ public class FormPanel extends JPanel
 	private JTextField nameField;
 	private JTextField occupationField;
 	private JButton okBtn;
+	private FormListener formListener;
 
 	public FormPanel()
 	{
@@ -35,6 +38,22 @@ public class FormPanel extends JPanel
 
 		okBtn = new JButton("OK");
 
+		okBtn.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				String name = nameField.getText();
+				String occupation = occupationField.getText();
+				
+				FormEvent ev = new FormEvent(this, name, occupation);
+				
+				if(formListener != null)
+				{
+					formListener.formEventOccurred(ev);
+				}
+			}
+		});
+
 		Border innerBorder = BorderFactory.createTitledBorder("Add Person");
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
@@ -42,7 +61,6 @@ public class FormPanel extends JPanel
 		setLayout(new GridBagLayout());
 
 		GridBagConstraints gc = new GridBagConstraints();
-
 		{
 			gc.weightx = 1;
 			gc.weighty = 0.1;
@@ -69,7 +87,7 @@ public class FormPanel extends JPanel
 				gc.anchor = GridBagConstraints.LINE_END;
 				gc.insets = new Insets(0, 0, 0, 5);
 				add(occupationLabel, gc);
-				
+
 				gc.gridx = 1;
 				gc.anchor = GridBagConstraints.LINE_START;
 				gc.insets = new Insets(0, 0, 0, 0);
@@ -79,11 +97,16 @@ public class FormPanel extends JPanel
 			// THIRD ROW
 			{
 				gc.weighty = 2;
-				
+
 				gc.gridy = 2;
 				gc.anchor = GridBagConstraints.FIRST_LINE_START;
 				add(okBtn, gc);
 			}
 		}
+	}
+
+	public void setFormListener(FormListener listener)
+	{
+		this.formListener = listener;
 	}
 }
