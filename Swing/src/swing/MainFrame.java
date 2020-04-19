@@ -13,6 +13,7 @@ public class MainFrame extends JFrame
 
 	private TextPanel textPanel;
 	private JButton btn;
+	private Toolbar toolbar;
 
 	public MainFrame()
 	{
@@ -20,6 +21,7 @@ public class MainFrame extends JFrame
 
 		setLayout(new BorderLayout());
 
+		toolbar = new Toolbar();
 		textPanel = new TextPanel();
 		btn = new JButton("Click Me!");
 
@@ -32,6 +34,7 @@ public class MainFrame extends JFrame
 		});
 
 		add(textPanel, BorderLayout.CENTER);
+		add(toolbar, BorderLayout.NORTH);
 		add(btn, BorderLayout.SOUTH);
 
 		setSize(600, 500);
