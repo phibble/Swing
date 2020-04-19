@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -34,6 +36,11 @@ public class FormPanel extends JPanel
 	private JCheckBox citizenCheck;
 	private JTextField taxField;
 	private JLabel taxLabel;
+	
+	private JRadioButton maleRadio;
+	private JRadioButton femaleRadio;
+	private JRadioButton diverseRadio;
+	private ButtonGroup genderGroup;
 
 	public FormPanel()
 	{
@@ -50,6 +57,23 @@ public class FormPanel extends JPanel
 		citizenCheck = new JCheckBox();
 		taxField = new JTextField(10);
 		taxLabel = new JLabel("Tax ID: ");
+		
+		maleRadio = new JRadioButton("male");
+		femaleRadio = new JRadioButton("female");
+		diverseRadio = new JRadioButton("diverse");
+		
+		maleRadio.setActionCommand("male");
+		femaleRadio.setActionCommand("female");
+		diverseRadio.setActionCommand("diverse");
+		
+		genderGroup = new ButtonGroup();
+		
+		maleRadio.setSelected(true);
+		
+		// set up gender radios
+		genderGroup.add(maleRadio);
+		genderGroup.add(femaleRadio);
+		genderGroup.add(diverseRadio);
 
 		// set up Tax ID
 		taxLabel.setEnabled(false);
@@ -98,8 +122,10 @@ public class FormPanel extends JPanel
 				String empCat = (String) empCombo.getSelectedItem();
 				String taxID = taxField.getText();
 				boolean usCitizen = citizenCheck.isSelected();
+				
+				String gender = genderGroup.getSelection().getActionCommand();
 
-				FormEvent ev = new FormEvent(this, name, occupation, ageCat.getID(), empCat, taxID, usCitizen);
+				FormEvent ev = new FormEvent(this, name, occupation, ageCat.getID(), empCat, taxID, usCitizen, gender);
 
 				if(formListener != null)
 				{
@@ -222,6 +248,42 @@ public class FormPanel extends JPanel
 			gc.anchor = GridBagConstraints.LINE_START;
 			gc.insets = new Insets(0, 0, 0, 0);
 			add(taxField, gc);
+			
+//////////////NEXT ROW ///////////////////////////////////////////////
+			gc.gridy++;
+
+			gc.weightx = 1;
+			gc.weighty = 0.05;
+
+			gc.gridx = 0;
+			gc.anchor = GridBagConstraints.LINE_END;
+			gc.insets = new Insets(0, 0, 0, 5);
+			add(new JLabel("Gender: "), gc);
+
+			gc.gridx = 1;
+			gc.anchor = GridBagConstraints.LINE_START;
+			gc.insets = new Insets(0, 0, 0, 0);
+			add(maleRadio, gc);
+			
+//////////////NEXT ROW ///////////////////////////////////////////////
+			gc.gridy++;
+
+			gc.weightx = 1;
+
+			gc.gridx = 1;
+			gc.anchor = GridBagConstraints.LINE_START;
+			gc.insets = new Insets(0, 0, 0, 0);
+			add(femaleRadio, gc);
+			
+//////////////NEXT ROW ///////////////////////////////////////////////
+			gc.gridy++;
+
+			gc.weightx = 1;
+
+			gc.gridx = 1;
+			gc.anchor = GridBagConstraints.LINE_START;
+			gc.insets = new Insets(0, 0, 0, 0);
+			add(diverseRadio, gc);
 
 ////////////// NEXT ROW ///////////////////////////////////////////////
 			gc.gridy++;
