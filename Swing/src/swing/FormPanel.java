@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -57,6 +58,12 @@ public class FormPanel extends JPanel
 		citizenCheck = new JCheckBox();
 		taxField = new JTextField(10);
 		taxLabel = new JLabel("Tax ID: ");
+		okBtn = new JButton("OK");
+		
+		// set up mnemonics
+		okBtn.setMnemonic(KeyEvent.VK_O);
+		nameLabel.setDisplayedMnemonic(KeyEvent.VK_N);
+		nameLabel.setLabelFor(nameField);
 		
 		maleRadio = new JRadioButton("male");
 		femaleRadio = new JRadioButton("female");
@@ -110,8 +117,6 @@ public class FormPanel extends JPanel
 		empCombo.setEditable(true);
 
 		// BUTTON
-		okBtn = new JButton("OK");
-
 		okBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
