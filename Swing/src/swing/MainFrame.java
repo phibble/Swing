@@ -20,8 +20,14 @@ public class MainFrame extends JFrame
 		toolbar = new Toolbar();
 		textPanel = new TextPanel();
 
-		toolbar.setTextPanel(textPanel);
-		
+		toolbar.setStringListener(new StringListener()
+		{
+			public void textEmitted(String text)
+			{
+				textPanel.appendText(text);
+			}
+		});
+
 		add(textPanel, BorderLayout.CENTER);
 		add(toolbar, BorderLayout.NORTH);
 
