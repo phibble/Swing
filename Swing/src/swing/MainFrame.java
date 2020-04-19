@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 public class MainFrame extends JFrame
@@ -91,14 +92,20 @@ public class MainFrame extends JFrame
 
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		exitItem.setMnemonic(KeyEvent.VK_X);
-		
+
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
 		exitItem.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.exit(0);
+				int action = JOptionPane.showConfirmDialog(MainFrame.this,
+						"Do you really want to exit the application?", "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
+
+				if(action == JOptionPane.OK_OPTION)
+				{
+					System.exit(0);
+				}
 			}
 		});
 
